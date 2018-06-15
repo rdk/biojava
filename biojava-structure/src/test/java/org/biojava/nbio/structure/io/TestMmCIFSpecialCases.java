@@ -41,6 +41,8 @@ public class TestMmCIFSpecialCases {
 	 * This tests for cases where dots appear in integer fields.
 	 * Unusual but it happens in some PDB entries like 1s32
 	 * See issue https://github.com/biojava/biojava/issues/368
+	 * See also http://mmcif.wwpdb.org/docs/tutorials/mechanics/pdbx-mmcif-syntax.html :
+	 * "A period (.) may be used to identify that there is no appropriate value for the item or that a value has been intentionally omitted."
 	 * @throws IOException
 	 */
 	@Test
@@ -135,7 +137,7 @@ public class TestMmCIFSpecialCases {
 
 		InputStream stream = new ByteArrayInputStream(mmcifStr.getBytes(StandardCharsets.UTF_8));
 		Structure s = CifStructureConverter.fromInputStream(stream);
-		
+
 		assertNotNull(s);
 		
 		assertEquals(1, s.size());
@@ -143,10 +145,11 @@ public class TestMmCIFSpecialCases {
 			assertEquals(1, s.size());
 			int pos = 0;
 			for( Group g : chain.getAtomGroups()) {
-				// label_seq_id is stored in the id (biojava 4)
-				assertEquals(pos+1, ((AminoAcidImpl)g).getId());
-				
-				assertEquals(new ResidueNumber("A", pos+1, null), g.getResidueNumber());
+				if (g instanceof AminoAcidImpl) {
+					// label_seq_id is stored in the id (biojava 4)
+					assertEquals(pos + 1, ((AminoAcidImpl) g).getId());
+					assertEquals(new ResidueNumber("A", pos + 1, null), g.getResidueNumber());
+				}
 				
 				pos++;
 			}
@@ -158,30 +161,30 @@ public class TestMmCIFSpecialCases {
 		// taken from 1s32
 		String mmcifStr =
 				"data_\n" +
-				"loop_\n" + 
-				"_atom_site.group_PDB \n" + 
-				"_atom_site.id \n" + 
-				"_atom_site.type_symbol \n" + 
-				"_atom_site.label_atom_id \n" + 
-				"_atom_site.label_alt_id \n" + 
-				"_atom_site.label_comp_id \n" + 
-				"_atom_site.label_asym_id \n" + 
-				"_atom_site.label_entity_id \n" + 
+				"loop_\n" +
+				"_atom_site.group_PDB \n" +
+				"_atom_site.id \n" +
+				"_atom_site.type_symbol \n" +
+				"_atom_site.label_atom_id \n" +
+				"_atom_site.label_alt_id \n" +
+				"_atom_site.label_comp_id \n" +
+				"_atom_site.label_asym_id \n" +
+				"_atom_site.label_entity_id \n" +
 				"_atom_site.label_seq_id \n" + // 9
-				"_atom_site.pdbx_PDB_ins_code \n" + 
-				"_atom_site.Cartn_x \n" + 
-				"_atom_site.Cartn_y \n" + 
-				"_atom_site.Cartn_z \n" + 
-				"_atom_site.occupancy \n" + 
-				"_atom_site.B_iso_or_equiv \n" + 
-				"_atom_site.pdbx_formal_charge \n" + 
+				"_atom_site.pdbx_PDB_ins_code \n" +
+				"_atom_site.Cartn_x \n" +
+				"_atom_site.Cartn_y \n" +
+				"_atom_site.Cartn_z \n" +
+				"_atom_site.occupancy \n" +
+				"_atom_site.B_iso_or_equiv \n" +
+				"_atom_site.pdbx_formal_charge \n" +
 				"_atom_site.auth_seq_id \n" + // 17
-				"_atom_site.auth_comp_id \n" + 
-				"_atom_site.auth_asym_id \n" + 
-				"_atom_site.auth_atom_id \n" + 
-				"_atom_site.pdbx_PDB_model_num \n" + 
+				"_atom_site.auth_comp_id \n" +
+				"_atom_site.auth_asym_id \n" +
+				"_atom_site.auth_atom_id \n" +
+				"_atom_site.pdbx_PDB_model_num \n" +
 				// 1    2   3 4   5 6   7  8  9   10 11     12      13      14     15   16  18
-				"ATOM   1    N N   . SER A 1 1   ? 36.651 10.046  12.372  1.00 59.41  ? 42  SER A N   1 \n" + 
+				"ATOM   1    N N   . SER A 1 1   ? 36.651 10.046  12.372  1.00 59.41  ? 42  SER A N   1 \n" +
 				"ATOM   2    C CA  . SER A 1 1   ? 37.678 9.064   12.762  1.00 38.34  ? 42  SER A CA  1 \n" + 
 				"ATOM   3    C C   . SER A 1 1   ? 38.289 8.315   11.570  1.00 35.51  ? 42  SER A C   1 \n" + 
 				"ATOM   4    O O   . SER A 1 1   ? 38.067 7.099   11.349  1.00 28.94  ? 42  SER A O   1 \n" + 
