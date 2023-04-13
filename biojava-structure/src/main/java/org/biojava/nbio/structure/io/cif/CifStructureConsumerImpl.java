@@ -277,7 +277,16 @@ public class CifStructureConsumerImpl implements CifStructureConsumer {
                 }
             }
 
-            ResidueNumber residueNumber = new ResidueNumber(authId, authSeqId.get(atomIndex), insCode);
+            Integer seqIndex = null;
+            if (authSeqId.isDefined() && authSeqId.getValueKind(atomIndex)==ValueKind.PRESENT) {
+                seqIndex = authSeqId.get(atomIndex);
+            } else if (labelSeqId.isDefined() && labelSeqId.getValueKind(atomIndex)==ValueKind.PRESENT) {
+                seqIndex = labelSeqId.get(atomIndex);
+            } else {
+                logger.warn("No auth_seq_id for atom id {} and label_seq_id is also undefined. Will assign null as its residue number.", atomIndex);
+            }
+
+            ResidueNumber residueNumber = new ResidueNumber(authId, seqIndex, insCode);
 
             String recordName = groupPDB.get(atomIndex);
             String compId = labelCompId.get(atomIndex);

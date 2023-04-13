@@ -85,7 +85,7 @@ public class TestMmCIFSpecialCases {
 	 * @throws IOException
 	 */
 	@Test
-	public void testMissingAuthRes() throws IOException {
+	public void testMissingAuthResColumn() throws IOException {
 		// taken from 1s32
 		String mmcifStr =
 				"data_\n" +
@@ -139,7 +139,7 @@ public class TestMmCIFSpecialCases {
 				"HETATM 2297 O O2  . SO4 F 4 .   ? 14.875 -17.562 13.352  0.80  8.37  ?  SO4 A O2  1 \n" +
 				"HETATM 2298 O O3  . SO4 F 4 .   ? 14.807 -19.703 14.370  0.80 10.08  ?  SO4 A O3  1 \n" +
 				"HETATM 2299 O O4  . SO4 F 4 .   ? 15.877 -17.909 15.543  0.80  7.41  ?  SO4 A O4  1 \n" +
-				"HETATM 2300 ZN ZN . ZN  G 2 .   ? 24.029 19.001   9.192  1.00  8.15  ?   ZN A ZN  1";;
+				"HETATM 2300 ZN ZN . ZN  G 2 .   ? 24.029 19.001   9.192  1.00  8.15  ?   ZN A ZN  1";
 
 		InputStream stream = new ByteArrayInputStream(mmcifStr.getBytes(StandardCharsets.UTF_8));
 		Structure s = CifStructureConverter.fromInputStream(stream);
@@ -162,6 +162,9 @@ public class TestMmCIFSpecialCases {
 		}
 	}
 
+	/**
+	 * Should parsing of this fail or not?
+	 */
 	@Test
 	public void testSomeMissingAuthRes() throws IOException {
 		// taken from 1s32
@@ -189,7 +192,7 @@ public class TestMmCIFSpecialCases {
 				"_atom_site.auth_asym_id \n" +
 				"_atom_site.auth_atom_id \n" +
 				"_atom_site.pdbx_PDB_model_num \n" +
-				// 1    2   3 4   5 6   7  8  9   10 11     12      13      14     15   16  18
+				// 1    2   3 4   5 6   7  8  9   10 11     12      13      14     15 16 17  18
 				"ATOM   1    N N   . SER A 1 1   ? 36.651 10.046  12.372  1.00 59.41  ? 42  SER A N   1 \n" +
 				"ATOM   2    C CA  . SER A 1 1   ? 37.678 9.064   12.762  1.00 38.34  ? 42  SER A CA  1 \n" + 
 				"ATOM   3    C C   . SER A 1 1   ? 38.289 8.315   11.570  1.00 35.51  ? 42  SER A C   1 \n" + 
@@ -220,16 +223,17 @@ public class TestMmCIFSpecialCases {
 				"HETATM 2300 ZN ZN . ZN  G 2 .   ? 24.029 19.001   9.192  1.00  8.15  ? 505  ZN A ZN  1";
 
 		InputStream stream = new ByteArrayInputStream(mmcifStr.getBytes(StandardCharsets.UTF_8));
+		Structure s = CifStructureConverter.fromInputStream(stream);
 
+		assertNotNull(s);
 
-
-		try {
-			// Current behaviour is to disallow ? in auth_seq_id
-			Structure s = CifStructureConverter.fromInputStream(stream);
-			fail("? in auth_seq_id not permitted");
-		} catch(NumberFormatException e) {
-			// expected
-		} 
+		//try {
+		//	// Current behaviour is to disallow ? in auth_seq_id
+		//	Structure s = CifStructureConverter.fromInputStream(stream);
+		//	fail("? in auth_seq_id not permitted");
+		//} catch(NumberFormatException e) {
+		//	// expected
+		//}
 	}
 
 }
