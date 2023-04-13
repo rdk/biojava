@@ -133,7 +133,13 @@ public class TestMmCIFSpecialCases {
 				"ATOM   19   C CB  . ASN A 1 3   ? 44.295 6.652   9.469   1.00 19.42  ?  ASN A CB  1 \n" + 
 				"ATOM   20   C CG  . ASN A 1 3   ? 44.172 5.932   10.790  1.00 18.34  ?  ASN A CG  1 \n" + 
 				"ATOM   21   O OD1 . ASN A 1 3   ? 44.475 6.496   11.813  1.00 15.88  ?  ASN A OD1 1 \n" + 
-				"ATOM   22   N ND2 . ASN A 1 3   ? 43.685 4.690   10.761  1.00 19.73  ?  ASN A ND2 1 \n";
+				"ATOM   22   N ND2 . ASN A 1 3   ? 43.685 4.690   10.761  1.00 19.73  ?  ASN A ND2 1 \n" +
+				"HETATM 2295 S S   . SO4 F 4 .   ? 15.627 -18.482 14.195  0.80  8.29  ?  SO4 A S   1 \n" +
+				"HETATM 2296 O O1  . SO4 F 4 .   ? 16.930 -18.774 13.558  0.80  9.33  ?  SO4 A O1  1 \n" +
+				"HETATM 2297 O O2  . SO4 F 4 .   ? 14.875 -17.562 13.352  0.80  8.37  ?  SO4 A O2  1 \n" +
+				"HETATM 2298 O O3  . SO4 F 4 .   ? 14.807 -19.703 14.370  0.80 10.08  ?  SO4 A O3  1 \n" +
+				"HETATM 2299 O O4  . SO4 F 4 .   ? 15.877 -17.909 15.543  0.80  7.41  ?  SO4 A O4  1 \n" +
+				"HETATM 2300 ZN ZN . ZN  G 2 .   ? 24.029 19.001   9.192  1.00  8.15  ?   ZN A ZN  1";;
 
 		InputStream stream = new ByteArrayInputStream(mmcifStr.getBytes(StandardCharsets.UTF_8));
 		Structure s = CifStructureConverter.fromInputStream(stream);
@@ -204,8 +210,14 @@ public class TestMmCIFSpecialCases {
 				"ATOM   18   O O   . ASN A 1 3   ? 43.138 8.574   7.194   1.00 15.89  ? 44  ASN A O   1 \n" + 
 				"ATOM   19   C CB  . ASN A 1 3   ? 44.295 6.652   9.469   1.00 19.42  ? 44  ASN A CB  1 \n" + 
 				"ATOM   20   C CG  . ASN A 1 3   ? 44.172 5.932   10.790  1.00 18.34  ? 44  ASN A CG  1 \n" + 
-				"ATOM   21   O OD1 . ASN A 1 3   ? 44.475 6.496   11.813  1.00 15.88  ? 44  ASN A OD1 1 \n" + 
-				"ATOM   22   N ND2 . ASN A 1 3   ? 43.685 4.690   10.761  1.00 19.73  ? 44  ASN A ND2 1 \n";
+				"ATOM   21   O OD1 . ASN A 1 3   ? 44.475 6.496   11.813  1.00 15.88  ? 44  ASN A OD1 1 \n" +
+				"ATOM   22   N ND2 . ASN A 1 3   ? 43.685 4.690   10.761  1.00 19.73  ? 44  ASN A ND2 1 \n" +
+				"HETATM 2295 S S   . SO4 F 4 .   ? 15.627 -18.482 14.195  0.80  8.29  ? ?   SO4 A S   1 \n" +
+				"HETATM 2296 O O1  . SO4 F 4 .   ? 16.930 -18.774 13.558  0.80  9.33  ? 504 SO4 A O1  1 \n" +
+				"HETATM 2297 O O2  . SO4 F 4 .   ? 14.875 -17.562 13.352  0.80  8.37  ? 504 SO4 A O2  1 \n" +
+				"HETATM 2298 O O3  . SO4 F 4 .   ? 14.807 -19.703 14.370  0.80 10.08  ? 504 SO4 A O3  1 \n" +
+				"HETATM 2299 O O4  . SO4 F 4 .   ? 15.877 -17.909 15.543  0.80  7.41  ? 504 SO4 A O4  1 \n" +
+				"HETATM 2300 ZN ZN . ZN  G 2 .   ? 24.029 19.001   9.192  1.00  8.15  ? 505  ZN A ZN  1";
 
 		InputStream stream = new ByteArrayInputStream(mmcifStr.getBytes(StandardCharsets.UTF_8));
 
