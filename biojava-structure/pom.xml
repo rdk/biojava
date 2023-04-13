@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>biojava-structure</artifactId>
 	<name>biojava-structure</name>
+	<version>6.1.0-rdk1</version>
 	<description>The protein structure modules of BioJava.</description>
 	<licenses>
 		<license>
