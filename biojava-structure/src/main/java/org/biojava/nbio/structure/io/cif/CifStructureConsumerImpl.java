@@ -1222,7 +1222,7 @@ public class CifStructureConsumerImpl implements CifStructureConsumer {
             }
         }
 
-        if (!params.isHeaderOnly()) {
+        if (!params.isHeaderOnly() && params.isParseSites()) {
             addSites();
         }
 
