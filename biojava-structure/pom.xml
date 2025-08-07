@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>biojava-structure</artifactId>
 	<name>biojava-structure</name>
-	<version>7.1.5-SNAP-rdk.1</version>
+	<version>7.2.2-rdk.1</version>
 	<description>The protein structure modules of BioJava.</description>
 	<licenses>
 		<license>
