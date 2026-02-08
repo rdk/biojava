@@ -99,6 +99,11 @@ public class FileParsingParameters implements Serializable
 	private boolean createAtomCharges;
 
 	/**
+	 * Should we parse the sites (Data in the STRUCT_SITE_GEN category record) from the file?
+	 */
+	private boolean parseSites;
+
+	/**
 	 * The maximum number of atoms we will add to a structure,
 	 * this protects from memory overflows in the few really big protein structures.
 	 */
@@ -134,6 +139,7 @@ public class FileParsingParameters implements Serializable
 
 		createAtomCharges = true;
 
+		parseSites = true;
 	}
 
 	/**
@@ -332,6 +338,12 @@ public class FileParsingParameters implements Serializable
 		this.createAtomCharges = createAtomCharges;
 	}
 
+	public boolean isParseSites() {
+		return parseSites;
+	}
 
+	public void setParseSites(boolean parseSites) {
+		this.parseSites = parseSites;
+	}
 
 }
