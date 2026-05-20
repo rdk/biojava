@@ -41,6 +41,8 @@ import org.biojava.nbio.structure.AminoAcid;
  * </li>
  * <li> {@link #setCreateAtomBonds(boolean)} - create atom bonds from parsed bonds in PDB/mmCIF files and chemical component files
  * </li>
+ * <li> {@link #setParseSites(boolean)} - parse the STRUCT_SITE / STRUCT_SITE_GEN records from a file (default: yes)
+ * </li>
  * </ul>
  *
  * @author Andreas Prlic
@@ -338,10 +340,24 @@ public class FileParsingParameters implements Serializable
 		this.createAtomCharges = createAtomCharges;
 	}
 
+	/**
+	 * Should we parse the sites (data in the STRUCT_SITE and STRUCT_SITE_GEN
+	 * categories) from the file?
+	 *
+	 * @return true if sites are being parsed, false otherwise. Default true.
+	 */
 	public boolean isParseSites() {
 		return parseSites;
 	}
 
+	/**
+	 * Set whether to parse the sites (data in the STRUCT_SITE and
+	 * STRUCT_SITE_GEN categories) from the file. Disabling this can save
+	 * time and memory when the caller does not need binding-site annotations.
+	 * Currently only honored by the CIF parser.
+	 *
+	 * @param parseSites true to parse sites, false to skip them
+	 */
 	public void setParseSites(boolean parseSites) {
 		this.parseSites = parseSites;
 	}
