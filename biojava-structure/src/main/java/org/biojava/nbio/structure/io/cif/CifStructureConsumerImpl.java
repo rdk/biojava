@@ -1087,7 +1087,7 @@ public class CifStructureConsumerImpl implements CifStructureConsumer {
 
     @Override
     public void consumeStructSite(StructSite structSite) {
-        if (params.isHeaderOnly()) {
+        if (params.isHeaderOnly() || !params.isParseSites()) {
             return;
         }
 
